@@ -521,10 +521,11 @@ h1, h2, h3 {
     }
     
     .gallery-item {
-        width: 220px;
-        height: 330px;
-        padding: 8px 8px 35px 8px;
+        width: 220px !important;
+        height: 360px !important;
+        padding: 8px 8px 40px 8px !important;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        flex: 0 0 220px !important;
     }
     
     .caption {
