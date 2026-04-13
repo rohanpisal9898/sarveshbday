@@ -23,7 +23,19 @@ function playMusic() {
 }
 
 // --- Navigation ---
-function nextScreen(currentScreenNum) {
+function nextScreen(currentScreenNum, event) {
+    // Generate expanding ripple effect
+    if (event) {
+        const ripple = document.createElement('div');
+        ripple.className = 'screen-transition-ripple';
+        ripple.style.left = `${event.clientX}px`;
+        ripple.style.top = `${event.clientY}px`;
+        document.body.appendChild(ripple);
+        
+        // cleanup ripple later
+        setTimeout(() => ripple.remove(), 1500);
+    }
+
     const currentScreen = document.getElementById(`screen-${currentScreenNum}`);
     const nextScreen = document.getElementById(`screen-${currentScreenNum + 1}`);
 
@@ -81,10 +93,24 @@ function createParticles() {
 // Init features on load
 window.addEventListener('load', () => {
     createParticles();
+    
+    // Typewriter effect for paragraphs
+    const paragraphs = document.querySelectorAll('.message-content p, .message-content h3');
+    paragraphs.forEach((p, index) => {
+        p.style.opacity = '0';
+        p.style.transform = 'translateY(15px)';
+        p.style.transition = 'all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        
+        setTimeout(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+        }, 600 + (index * 400)); // Stagger by 400ms each
+    });
 });
 
-// --- Interactive Cursor & 3D Tilt ---
+// --- Interactive Cursor, Spotlight & 3D Tilt ---
 const cursorGlow = document.getElementById('cursor-glow');
+const spotlight = document.getElementById('spotlight');
 const messageCard = document.querySelector('.message-content');
 
 document.addEventListener('mousemove', (e) => {
@@ -94,11 +120,41 @@ document.addEventListener('mousemove', (e) => {
         cursorGlow.style.top = `${e.clientY}px`;
     }
     
+    // Dynamic Spotlight following cursor
+    if (spotlight) {
+        // Spotlight radius shifts slightly with movement
+        spotlight.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, transparent 10%, rgba(2, 2, 6, 0.85) 120%)`;
+    }
+    
     // 3D Tilt for the main message card
     if (messageCard && !messageCard.closest('.hidden')) {
         const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
         const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
         messageCard.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    }
+});
+
+// --- Neon Click Sparks ---
+document.addEventListener('click', (e) => {
+    // Generate bursting mini-sparks at click coordinates
+    const burstCount = 10;
+    for (let i = 0; i < burstCount; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'click-spark';
+        document.body.appendChild(spark);
+
+        const angle = (Math.PI * 2 * i) / burstCount;
+        const velocity = 30 + Math.random() * 50;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+
+        spark.style.left = `${e.clientX}px`;
+        spark.style.top = `${e.clientY}px`;
+        
+        spark.style.setProperty('--tx', `${tx}px`);
+        spark.style.setProperty('--ty', `${ty}px`);
+        
+        setTimeout(() => spark.remove(), 600);
     }
 });
 
@@ -117,6 +173,18 @@ async function triggerSurprise() {
 
     try {
         statusText.innerText = 'Calling... 📞';
+        
+        // CONFETTI BLAST
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 250,
+                spread: 120,
+                origin: { y: 0.6 },
+                colors: ['#ec4899', '#8b5cf6', '#3b82f6', '#4fd1c5'],
+                ticks: 300,
+                gravity: 0.8
+            });
+        }
         
         const response = await fetch(YOUR_WEBHOOK_URL, {
             method: 'POST',

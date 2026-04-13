@@ -9,10 +9,20 @@
 </head>
 <body>
     <!-- Background animations -->
+    <div id="spotlight"></div>
     <div id="cursor-glow" class="cursor-glow"></div>
     <div class="particles" id="particles"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
+
+    <!-- Music Visualizer component -->
+    <div class="music-visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
 
     <!-- Audio Element -->
     <audio id="bg-music" loop autoplay>
@@ -38,7 +48,7 @@
                 <h3 class="highlight-text">Happy Birthday once again, bro 🥳 🔥</h3>
             </div>
 
-            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(1)">
+            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(1, event)">
                 OPEN &rarr;
             </button>
         </section>
@@ -58,7 +68,7 @@
             </div>
 
             <br>
-            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(2)">
+            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(2, event)">
                 NEXT &rarr;
             </button>
         </section>
@@ -69,12 +79,13 @@
             <h1 class="gradient-text title" style="margin-bottom: 1.5rem;">One Last Thing...</h1>
             <p class="subtitle mb-8" id="calling-status"></p>
             
-            <button id="surprise-btn" class="primary-btn glow-effect pulse" onclick="triggerSurprise()">
+            <button id="surprise-btn" class="primary-btn glow-effect pulse glitch-btn" onclick="triggerSurprise()">
                 TAP FOR SURPRISE
             </button>
         </section>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
