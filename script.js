@@ -43,45 +43,65 @@ function nextScreen(currentScreenNum) {
     }
 }
 
-// --- Particles Background ---
+// --- Particles & Emojis Background ---
 function createParticles() {
     const container = document.getElementById('particles');
-    // Number of particles depends on screen width, max 80
-    const particleCount = Math.min(Math.floor(window.innerWidth / 15), 80); 
+    const particleCount = Math.min(Math.floor(window.innerWidth / 20), 50); 
     
-    // Using curated glowing colors to match the screenshot background
-    const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#4fd1c5'];
+    const emojis = ['🎈', '✨', '🎉', '💖', '🎵', '🎂'];
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
         // Random properties
-        const size = Math.random() * 2.5 + 1;
+        const size = Math.random() * 2 + 1;
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const duration = Math.random() * 4 + 2;
+        const duration = Math.random() * 5 + 3;
         const delay = Math.random() * 5;
         
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
         particle.style.left = `${x}vw`;
         particle.style.top = `${y}vh`;
         particle.style.animationDuration = `${duration}s`;
         particle.style.animationDelay = `${delay}s`;
         
-        // Give particles a slight glow
-        particle.style.backgroundColor = color;
-        particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+        // Render as floating emojis instead of dots
+        particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        particle.style.fontSize = `${size * 10}px`;
+        particle.style.background = 'transparent';
+        particle.style.boxShadow = 'none';
+        particle.style.filter = `blur(${Math.random() * 1}px)`;
+        particle.style.opacity = Math.random() * 0.5 + 0.2;
         
         container.appendChild(particle);
     }
 }
 
-// Init particles on load
-window.addEventListener('load', createParticles);
+// Init features on load
+window.addEventListener('load', () => {
+    createParticles();
+});
+
+// --- Interactive Cursor & 3D Tilt ---
+const cursorGlow = document.getElementById('cursor-glow');
+const messageCard = document.querySelector('.message-content');
+
+document.addEventListener('mousemove', (e) => {
+    // Move custom cursor
+    if (cursorGlow) {
+        cursorGlow.style.left = `${e.clientX}px`;
+        cursorGlow.style.top = `${e.clientY}px`;
+    }
+    
+    // 3D Tilt for the main message card
+    if (messageCard && !messageCard.closest('.hidden')) {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+        messageCard.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    }
+});
+
 
 // --- Webhook / Surprise ---
 async function triggerSurprise() {

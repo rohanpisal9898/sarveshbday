@@ -25,6 +25,20 @@ body {
     user-select: none;
 }
 
+/* Custom Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, rgba(139,92,246,0.1) 40%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: screen;
+    transition: width 0.3s, height 0.3s;
+}
+
 /* Background effects */
 .glow-orb {
     position: fixed;
@@ -276,40 +290,25 @@ h1, h2, h3 {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Gallery - Based on Reference Image 2 */
+/* Gallery - Polaroid Style */
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 320px);
-    gap: 1.5rem;
+    grid-template-rows: repeat(2, 340px);
+    gap: 2rem;
     width: 100%;
     max-width: 950px;
+    perspective: 1000px;
 }
 
 .gallery-item {
-    border-radius: 12px;
-    overflow: hidden;
+    background: white;
+    padding: 12px 12px 50px 12px; /* Polaroid bottom border */
+    border-radius: 4px;
     position: relative;
-    border: 2px solid rgba(59, 130, 246, 0.4);
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0,0,0,0.2);
     opacity: 0;
-    transform: scale(0.8) translateY(20px);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Delay for staggered reveal */
-.screen.active .item-1 { transition-delay: 0.1s; opacity: 1; transform: scale(1) translateY(0); }
-.screen.active .item-2 { transition-delay: 0.2s; opacity: 1; transform: scale(1) translateY(0); }
-.screen.active .item-3 { transition-delay: 0.3s; opacity: 1; transform: scale(1) translateY(0); }
-.screen.active .item-4 { transition-delay: 0.4s; opacity: 1; transform: scale(1) translateY(0); }
-.screen.active .item-5 { transition-delay: 0.5s; opacity: 1; transform: scale(1) translateY(0); }
-
-.gallery-item:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
-    border-color: rgba(59, 130, 246, 0.8);
-    z-index: 3;
-    transition-delay: 0s !important;
 }
 
 .gallery-item img {
@@ -317,11 +316,39 @@ h1, h2, h3 {
     height: 100%;
     object-fit: cover;
     background-color: #1f2937;
-    transition: transform 0.5s ease;
+    border-radius: 2px;
+    transition: filter 0.5s ease;
+}
+
+.caption {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #333;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Delay & Rotations for staggered reveal */
+.screen.active .item-1 { transition-delay: 0.1s; opacity: 1; transform: rotate(-4deg) translateY(0); }
+.screen.active .item-2 { transition-delay: 0.2s; opacity: 1; transform: rotate(3deg) translateY(0); }
+.screen.active .item-3 { transition-delay: 0.3s; opacity: 1; transform: rotate(-2deg) translateY(0); }
+.screen.active .item-4 { transition-delay: 0.4s; opacity: 1; transform: rotate(5deg) translateY(0); }
+.screen.active .item-5 { transition-delay: 0.5s; opacity: 1; transform: rotate(-5deg) translateY(0); }
+
+.gallery-item:hover {
+    transform: scale(1.1) rotate(0deg) !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    z-index: 10;
+    transition-delay: 0s !important;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.1);
+    filter: brightness(1.1);
 }
 
 /* Image styling matching exact layout */
