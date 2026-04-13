@@ -353,15 +353,41 @@ h1, h2, h3 {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Gallery - Polaroid Style */
+/* Film Strip Track */
+.gallery-track {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%); /* Break out of container */
+    overflow: hidden;
+    padding: 3rem 0;
+    position: relative;
+    /* Film edges shading */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 340px);
-    gap: 2rem;
-    width: 100%;
-    max-width: 950px;
+    display: flex;
+    gap: 3rem;
+    width: max-content;
     perspective: 1000px;
+    padding: 0 2rem;
+    /* Wait for screen to be active before scrolling */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.screen.active .gallery {
+    opacity: 1;
+    animation: scrollFilm 25s linear infinite;
+}
+
+.gallery:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollFilm {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 1.5rem)); }
 }
 
 .gallery-item {
@@ -370,8 +396,10 @@ h1, h2, h3 {
     border-radius: 4px;
     position: relative;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0,0,0,0.2);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 250px;
+    height: 300px;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .gallery-item img {
@@ -380,38 +408,31 @@ h1, h2, h3 {
     object-fit: cover;
     background-color: #1f2937;
     border-radius: 2px;
-    transition: filter 0.5s ease;
 }
 
 .caption {
     position: absolute;
-    bottom: 15px;
+    bottom: 12px;
     left: 0;
     width: 100%;
     text-align: center;
     color: #333;
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 1px;
 }
 
-/* Delay & Rotations for staggered reveal */
-.screen.active .item-1 { transition-delay: 0.1s; opacity: 1; transform: rotate(-4deg) translateY(0); }
-.screen.active .item-2 { transition-delay: 0.2s; opacity: 1; transform: rotate(3deg) translateY(0); }
-.screen.active .item-3 { transition-delay: 0.3s; opacity: 1; transform: rotate(-2deg) translateY(0); }
-.screen.active .item-4 { transition-delay: 0.4s; opacity: 1; transform: rotate(5deg) translateY(0); }
-.screen.active .item-5 { transition-delay: 0.5s; opacity: 1; transform: rotate(-5deg) translateY(0); }
+/* Messy Polaroid Rotations */
+.gallery-item:nth-child(even) { transform: rotate(4deg); }
+.gallery-item:nth-child(odd) { transform: rotate(-3deg); }
+.gallery-item:nth-child(3n) { transform: rotate(-6deg); }
+.gallery-item:nth-child(4n) { transform: rotate(5deg); }
 
 .gallery-item:hover {
-    transform: scale(1.1) rotate(0deg) !important;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    transform: scale(1.15) rotate(0deg) translateY(-10px) !important;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
     z-index: 10;
-    transition-delay: 0s !important;
-}
-
-.gallery-item:hover img {
-    filter: brightness(1.1);
 }
 
 /* Image styling matching exact layout */
