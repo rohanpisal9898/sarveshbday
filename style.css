@@ -396,8 +396,8 @@ h1, h2, h3 {
     border-radius: 4px;
     position: relative;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0,0,0,0.2);
-    width: 250px;
-    height: 300px;
+    width: 280px;
+    height: 420px;
     flex-shrink: 0;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
