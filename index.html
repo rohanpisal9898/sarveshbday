@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sarvesh!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background animations -->
+    <div class="particles" id="particles"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Audio Element -->
+    <audio id="bg-music" loop autoplay>
+        <source src="nastelbom-happy-birthday-471481.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="main-container">
+        <!-- Screen 1: Welcome -->
+        <section id="screen-1" class="screen active">
+            <h1 class="gradient-text title">Happy Birthday<br>Sarvesh <span class="cake-bounce" style="display:inline-block;">🎂</span></h1>
+            
+            <div class="message-content">
+                <p>From all the chaos, jokes, random plans, and stupid conversations to the actually real moments — you've been a constant part of it all. And honestly, life would be way more boring without you around.</p>
+                
+                <p>You're one of those people who just naturally makes things lighter, funnier, and better without even trying. Whether it's just chilling, talking nonsense, or figuring stuff out, it's always a good time with you.</p>
+
+                <p>I don't say this often, but you genuinely matter a lot, and I'm really glad to have you in my life.</p>
+
+                <p>I hope this year brings you everything you're aiming for — good vibes, growth, success, and a lot more memories we'll laugh about later.</p>
+
+                <p>Enjoy your day properly — good food, good people, and zero stress. You deserve it.</p>
+
+                <h3 class="highlight-text">Happy Birthday once again, bro 🥳 🔥</h3>
+            </div>
+
+            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(1)">
+                OPEN &rarr;
+            </button>
+        </section>
+
+        <!-- Screen 2: Photos -->
+        <section id="screen-2" class="screen hidden">
+            <h1 class="gradient-text title-sm">The Chaos Archives 🎭</h1>
+            <p class="subtitle" style="margin-bottom: 2rem;">Random moments that somehow became the best memories</p>
+            
+            <div class="gallery">
+                <!-- User's actual uploaded images -->
+                <div class="gallery-item item-1"><img src="bday.jpeg" alt="Memory 1"></div>
+                <div class="gallery-item item-2"><img src="bday2.jpeg" alt="Memory 2"></div>
+                <div class="gallery-item item-3"><img src="bday3.jpeg" alt="Memory 3"></div>
+                <div class="gallery-item item-4"><img src="bday4.jpeg" alt="Memory 4"></div>
+                <div class="gallery-item item-5"><img src="bday5.jpeg" alt="Memory 5"></div>
+            </div>
+
+            <br>
+            <button class="primary-btn glow-effect mt-8" onclick="nextScreen(2)">
+                NEXT &rarr;
+            </button>
+        </section>
+
+        <!-- Screen 3: Surprise -->
+        <section id="screen-3" class="screen hidden text-center">
+            <div class="gift-icon bounce">🎁</div>
+            <h1 class="gradient-text title" style="margin-bottom: 1.5rem;">One Last Thing...</h1>
+            <p class="subtitle mb-8" id="calling-status"></p>
+            
+            <button id="surprise-btn" class="primary-btn glow-effect pulse" onclick="triggerSurprise()">
+                TAP FOR SURPRISE
+            </button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
