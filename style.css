@@ -516,25 +516,36 @@ h1, h2, h3 {
 /* Responsive */
 @media (max-width: 768px) {
     .gallery {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-    }
-    
-    .item-1 {
-        grid-row: auto;
-        grid-column: 1 / span 2;
-        height: 250px;
+        gap: 1.5rem;
+        padding: 0 1rem;
     }
     
     .gallery-item {
-        height: 180px;
+        width: 220px;
+        height: 330px;
+        padding: 8px 8px 35px 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    
+    .caption {
+        font-size: 0.9rem;
+        bottom: 8px;
     }
     
     .message-content {
-        padding: 0 1rem;
+        padding: 2rem 1.5rem;
     }
     
     .title {
         margin-bottom: 1rem;
+    }
+    
+    .music-visualizer {
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    .cursor-glow {
+        display: none; /* Hide custom cursor on touch devices */
     }
 }
